@@ -1,22 +1,23 @@
+import os
 import telebot
+import logging
+from dotenv import load_dotenv
 
 
-bot = telebot.TeleBot("6637498364:AAGKW-QFMuoUofd_yf-pm1jHxbWhTq7efnU")
+load_dotenv()
 
-commands = [
-    {'command': 'start', 'description': 'Start the bot'},
-    {'command': 'help', 'description': 'Get help'},
-    {'command': 'helloworld', 'description': 'Say Hello World'},
-]
-
-# bot.set_my_commands(commands=commands)
-bot.send_message()
-# bot.set_my_commands()
+bot = telebot.TeleBot("6637498364:AAEMtFQ2PAkEQiX0TroW8D0pMr0l5N9U3K8")
+print(bot)
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=["help"], content_types=["new_chat_members", "left_chat_member", "chat_member"])
 def send_welcome(message):
-    bot.reply_to(message, "Howdy, how are you doing?")
+	bot.reply_to(message, "howa you")
+    
+
+@bot.chat_member_handler(func=None)
+def hello(data):
+    print("yiiiii")
 
 
-bot.infinity_polling()
+bot.infinity_polling(logger_level=logging.INFO, allowed_updates= ["util.update_types"])

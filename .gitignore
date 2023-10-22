@@ -1,1 +1,4 @@
 .vscode
+.env
+py_test_bot
+nodemon.json
